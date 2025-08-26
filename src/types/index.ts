@@ -12,11 +12,12 @@ export interface ApiDataPoint {
 }
 
 export interface ParsedValue {
-  temperature?: number;
-  humidity?: number;
-_co2?: number;
-  co2?: number;
-  tvoc?: number;
+  data?: {
+    data1?: number | string;
+    data2?: number | string;
+    data3?: number | string;
+    data4?: number | string;
+  };
 }
 
 export interface ChartDataPoint {
@@ -28,7 +29,7 @@ export interface EndpointConfig {
   id: string;
   name: string;
   url: string;
-  dataKey: keyof ParsedValue;
+  dataKey: "data1" | "data2" | "data3" | "data4";
   yAxisLabel: string;
 }
 

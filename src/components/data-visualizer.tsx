@@ -5,31 +5,57 @@ import { GraphCard } from "@/components/graph-card";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import type { EndpointConfig, GraphCustomization } from "@/types";
 
+const singleEndpointUrl = "https://smartiot.space/api/iot/iotTopicData/deviceUpdateDataList?topicId=1960179631955456001";
+
 const endpoints: EndpointConfig[] = [
   {
-    id: "temp-sensor",
-    name: "Temperature Sensor",
-    url: "https://smartiot.space/api/iot/iotTopicData/deviceUpdateDataList?topicId=1955527637022093313",
-    dataKey: "temperature",
-    yAxisLabel: "Temp (°C)",
+    id: "brightness",
+    name: "Brightness",
+    url: singleEndpointUrl,
+    dataKey: "data1",
+    yAxisLabel: "Brightness",
   },
   {
-    id: "air-quality",
-    name: "Air Quality Sensor",
-    url: "https://smartiot.space/api/iot/iotTopicData/deviceUpdateDataList?topicId=1960179631955456001",
-    dataKey: "co2",
-    yAxisLabel: "CO₂ (ppm)",
+    id: "humidity",
+    name: "Humidity",
+    url: singleEndpointUrl,
+    dataKey: "data2",
+    yAxisLabel: "Humidity (%)",
+  },
+  {
+    id: "soil-moisture",
+    name: "Soil Moisture",
+    url: singleEndpointUrl,
+    dataKey: "data3",
+    yAxisLabel: "Moisture",
+  },
+  {
+    id: "temperature",
+    name: "Temperature",
+    url: singleEndpointUrl,
+    dataKey: "data4",
+    yAxisLabel: "Temp (°C)",
   },
 ];
 
 const defaultCustomizations: { [key: string]: GraphCustomization } = {
-  "temp-sensor": {
+  "brightness": {
     color: "#9D4EDD",
     yMin: 'auto',
     yMax: 'auto',
   },
-  "air-quality": {
+  "humidity": {
     color: "#560BAD",
+    yMin: 'auto',
+    yMax: 'auto',
+  },
+  "soil-moisture": {
+    color: "#3F37C9",
+    yMin: 'auto',
+    yMax: 'auto',
+  },
+  "temperature": {
+    color: "#4895EF",
     yMin: 'auto',
     yMax: 'auto',
   },
@@ -51,7 +77,7 @@ export function DataVisualizer() {
   return (
     <div className="w-full max-w-7xl mt-8">
       <Tabs defaultValue={endpoints[0].id} className="w-full">
-        <TabsList className="grid w-full grid-cols-1 md:grid-cols-2">
+        <TabsList className="grid w-full grid-cols-1 md:grid-cols-4">
           {endpoints.map((endpoint) => (
             <TabsTrigger key={endpoint.id} value={endpoint.id}>
               {endpoint.name}

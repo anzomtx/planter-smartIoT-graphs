@@ -52,11 +52,11 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
           if (!item.value) return null;
           try {
             const parsedValue: ParsedValue = JSON.parse(item.value);
-            const value = parsedValue[endpoint.dataKey];
+            const value = parsedValue.data?.[endpoint.dataKey];
             if (value !== undefined) {
               return {
                 time: item.updateTime,
-                value: value,
+                value: Number(value),
               };
             }
           } catch (e) {
@@ -64,7 +64,7 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
           }
           return null;
         })
-        .filter((item): item is ChartDataPoint => item !== null)
+        .filter((item): item is ChartDataPoint => item !== null && !isNaN(item.value))
         .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
 
       setData(chartData);
@@ -108,7 +108,7 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
             <div className="flex-1">
                 <CardTitle>{endpoint.name}</CardTitle>
                 <CardDescription>
-                    {`Showing ${endpoint.dataKey} data over time.`}
+                    {`Showing ${endpoint.name} data over time.`}
                 </CardDescription>
             </div>
             <div className="flex items-center gap-2">

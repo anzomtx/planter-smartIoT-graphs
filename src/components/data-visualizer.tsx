@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -64,9 +65,9 @@ const sensorTypes: Omit<EndpointConfig, "url">[] = [
 
 const defaultCustomizations: { [key: string]: GraphCustomization } = {
   "brightness": { color: "#FFC300", yMin: 'auto', yMax: 'auto' }, // Yellow
-  "humidity": { color: "#FFFFFF", yMin: 'auto', yMax: 'auto' }, // White
-  "soil-moisture": { color: "#FF5733", yMin: 'auto', yMax: 'auto' }, // Orange
-  "temperature": { color: "#FF69B4", yMin: 'auto', yMax: 'auto' }, // Pink
+  "humidity": { color: "#0000FF", yMin: 'auto', yMax: 'auto' }, // Blue
+  "soil-moisture": { color: "#FFA500", yMin: 'auto', yMax: 'auto' }, // Orange
+  "temperature": { color: "#FF0000", yMin: 'auto', yMax: 'auto' }, // Red
 };
 
 export function DataVisualizer() {

@@ -18,7 +18,7 @@ import {
 
 interface OverviewGraphCardProps {
     url: string;
-    endpoints: EndpointConfig[];
+    endpoints: Omit<EndpointConfig, "url">[];
     customizations: { [key: string]: GraphCustomization };
 }
 
@@ -100,7 +100,7 @@ export function OverviewGraphCard({ url, endpoints, customizations }: OverviewGr
     endpoints.forEach(endpoint => {
         config[endpoint.id] = {
             label: endpoint.name,
-            color: customizations[endpoint.id]?.color || '#ffffff',
+            color: customizations[endpoint.id]?.color || '#000000',
         };
     });
     return config;
@@ -189,7 +189,7 @@ export function OverviewGraphCard({ url, endpoints, customizations }: OverviewGr
                                     type="monotone" 
                                     dataKey={endpoint.id}
                                     name={endpoint.name}
-                                    stroke={customizations[endpoint.id]?.color || '#ffffff'}
+                                    stroke={customizations[endpoint.id]?.color || '#000000'}
                                     strokeWidth={2}
                                     dot={false}
                                     activeDot={{ r: 8, strokeWidth: 2 }}

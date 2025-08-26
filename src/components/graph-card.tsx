@@ -45,7 +45,13 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const apiData: ApiDataPoint[] = await response.json();
+      const apiResponse = await response.json();
+      
+      if (!apiResponse || !Array.isArray(apiResponse.data)) {
+        throw new Error("Invalid API response format");
+      }
+      
+      const apiData: ApiDataPoint[] = apiResponse.data;
 
       const chartData: ChartDataPoint[] = apiData
         .map((item) => {

@@ -49,6 +49,7 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
 
       const chartData: ChartDataPoint[] = apiData
         .map((item) => {
+          if (!item.value) return null;
           try {
             const parsedValue: ParsedValue = JSON.parse(item.value);
             const value = parsedValue[endpoint.dataKey];

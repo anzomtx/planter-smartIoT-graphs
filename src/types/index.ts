@@ -7,7 +7,7 @@ export interface ApiDataPoint {
   productName: string;
   deviceId: string;
   deviceName: string;
-  updateTime: string;
+  createTime: string;
   data1?: number | string;
   data2?: number | string;
   data3?: number | string;

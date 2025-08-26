@@ -57,8 +57,8 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
         .map((item) => {
           try {
             const value = item[endpoint.dataKey];
-            if (value !== undefined && value !== null) {
-              const sanitizedTime = item.updateTime.replace(/-/g, "/");
+            if (value !== undefined && value !== null && item.createTime) {
+              const sanitizedTime = item.createTime.replace(/-/g, "/");
               return {
                 time: sanitizedTime,
                 value: Number(value),

@@ -11,7 +11,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Settings, AlertCircle, RefreshCw } from "lucide-react";
-import type { ApiDataPoint, ChartDataPoint, EndpointConfig, GraphCustomization, ParsedValue } from "@/types";
+import type { ApiDataPoint, ChartDataPoint, EndpointConfig, GraphCustomization } from "@/types";
 import {
   ChartContainer,
   ChartTooltip as RechartsChartTooltip,
@@ -49,18 +49,16 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
 
       const chartData: ChartDataPoint[] = apiData
         .map((item) => {
-          if (!item.value) return null;
           try {
-            const parsedValue: ParsedValue = JSON.parse(item.value);
-            const value = parsedValue.data?.[endpoint.dataKey];
-            if (value !== undefined) {
+            const value = item[endpoint.dataKey];
+            if (value !== undefined && value !== null) {
               return {
                 time: item.updateTime,
                 value: Number(value),
               };
             }
           } catch (e) {
-            console.error("Failed to parse value:", item.value);
+            console.error("Failed to process data point:", item);
           }
           return null;
         })

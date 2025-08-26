@@ -8,16 +8,10 @@ export interface ApiDataPoint {
   deviceId: string;
   deviceName: string;
   updateTime: string;
-  value: string;
-}
-
-export interface ParsedValue {
-  data?: {
-    data1?: number | string;
-    data2?: number | string;
-    data3?: number | string;
-    data4?: number | string;
-  };
+  data1?: number | string;
+  data2?: number | string;
+  data3?: number | string;
+  data4?: number | string;
 }
 
 export interface ChartDataPoint {

@@ -13,7 +13,7 @@ const endpoints: EndpointConfig[] = [
     name: "Brightness",
     url: singleEndpointUrl,
     dataKey: "data1",
-    yAxisLabel: "Brightness",
+    yAxisLabel: "Brightness (lux)",
   },
   {
     id: "humidity",

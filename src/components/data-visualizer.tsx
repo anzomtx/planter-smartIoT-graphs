@@ -63,10 +63,10 @@ const sensorTypes: Omit<EndpointConfig, "url">[] = [
 ];
 
 const defaultCustomizations: { [key: string]: GraphCustomization } = {
-  "brightness": { color: "#9D4EDD", yMin: 'auto', yMax: 'auto' },
-  "humidity": { color: "#560BAD", yMin: 'auto', yMax: 'auto' },
-  "soil-moisture": { color: "#3F37C9", yMin: 'auto', yMax: 'auto' },
-  "temperature": { color: "#4895EF", yMin: 'auto', yMax: 'auto' },
+  "brightness": { color: "#FFC300", yMin: 'auto', yMax: 'auto' }, // Yellow
+  "humidity": { color: "#FFFFFF", yMin: 'auto', yMax: 'auto' }, // White
+  "soil-moisture": { color: "#FF5733", yMin: 'auto', yMax: 'auto' }, // Orange
+  "temperature": { color: "#FF69B4", yMin: 'auto', yMax: 'auto' }, // Pink
 };
 
 export function DataVisualizer() {

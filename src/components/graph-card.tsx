@@ -1,7 +1,8 @@
+
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { format } from "date-fns";
+import { format, isValid } from "date-fns";
 import { Line, LineChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -44,16 +45,16 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const jsonResponse = await response.json();
-      const apiData: ApiDataPoint[] = jsonResponse.data;
+      const apiData: ApiDataPoint[] = await response.json();
 
       const chartData: ChartDataPoint[] = apiData
         .map((item) => {
           try {
             const value = item[endpoint.dataKey];
             if (value !== undefined && value !== null) {
+              const sanitizedTime = item.updateTime.replace(/-/g, "/");
               return {
-                time: item.updateTime,
+                time: sanitizedTime,
                 value: Number(value),
               };
             }
@@ -62,7 +63,11 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
           }
           return null;
         })
-        .filter((item): item is ChartDataPoint => item !== null && !isNaN(item.value))
+        .filter((item): item is ChartDataPoint => {
+            if (item === null || isNaN(item.value)) return false;
+            const date = new Date(item.time);
+            return isValid(date);
+        })
         .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime());
 
       setData(chartData);
@@ -221,7 +226,10 @@ export function GraphCard({ endpoint, customization, onCustomizationChange }: Gr
                                     indicator="dot"
                                     labelFormatter={(label, payload) => {
                                         if (payload && payload.length > 0) {
-                                            return format(new Date(payload[0].payload.time), "MMM d, HH:mm:ss");
+                                            const date = new Date(payload[0].payload.time);
+                                            if (isValid(date)) {
+                                                return format(date, "MMM d, HH:mm:ss");
+                                            }
                                         }
                                         return label;
                                     }}

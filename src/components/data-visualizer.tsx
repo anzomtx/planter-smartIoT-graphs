@@ -32,6 +32,11 @@ const groupEndpoints = [
   { id: "13", topicId: "1960185772777222145" },
   { id: "14", topicId: "1960185806969188353" },
   { id: "15", topicId: "1960185838829121538" },
+  { id: "16", topicId: "1960272907756711938" },
+  { id: "17", topicId: "1960272971468189698" },
+  { id: "18", topicId: "1960273053491998721" },
+  { id: "19", topicId: "1960273190440218626" },
+  { id: "20", topicId: "1960273256227876866" },
 ];
 
 const buildUrl = (topicId: string) => `https://smartiot.space/api/iot/iotTopicData/deviceUpdateDataList?topicId=${topicId}`;
